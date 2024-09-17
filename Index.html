@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ideias para a Eris Bot e Pedidos de Música</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background: #c62828; /* Vermelho escuro */
+            color: #fff;
+            padding: 20px 0;
+            border-bottom: #8e0000 3px solid;
+            text-align: center;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+        nav {
+            text-align: center;
+            margin-top: 20px;
+        }
+        nav ul {
+            padding: 0;
+            list-style: none;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+        }
+        nav ul li {
+            margin: 0 20px; /* Espaçamento entre abas */
+        }
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 14px; /* Tamanho da fonte ajustado */
+            padding: 10px 15px;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+            background-color: #b71c1c; /* Vermelho mais escuro */
+            white-space: nowrap; /* Evita quebra de linha */
+        }
+        nav ul li a.active {
+            background-color: #8e0000; /* Vermelho vinho */
+            color: #fff;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+            overflow: hidden;
+        }
+        .tab-content {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+            display: none; /* Inicialmente oculto */
+        }
+        .tab-content.active {
+            display: block; /* Mostrar a aba ativa */
+        }
+        .tab-content h2 {
+            margin-top: 0;
+        }
+        .tab-content form {
+            margin: 0;
+        }
+        .tab-content input[type="text"] {
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            width: calc(100% - 22px);
+            box-sizing: border-box;
+        }
+        .tab-content input[type="submit"] {
+            background-color: #c62828; /* Vermelho escuro */
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            padding: 10px;
+            cursor: pointer;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        .tab-content input[type="submit"]:hover {
+            background-color: #b71c1c; /* Vermelho mais escuro */
+        }
+        .requests-container ul {
+            list-style: none;
+            padding: 0;
+            margin: 10px 0;
+        }
+        .requests-container li {
+            background: #f9f9f9;
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Ideias para a Eris Bot e Pedidos de Música</h1>
+            <nav>
+                <ul>
+                    <li><a href="#" onclick="showTab('ideas'); setActiveTab(this);">Ideias Comandos</a></li>
+                    <li><a href="#" onclick="showTab('requests'); setActiveTab(this);">Pedidos Músicas</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <div class="container">
+        <div id="ideas" class="tab-content active">
+            <h2>Ideias Comandos</h2>
+            <form id="idea-form">
+                <input type="text" id="idea-input" placeholder="Digite sua ideia de comando" required>
+                <input type="submit" value="Enviar Ideia">
+            </form>
+        </div>
+        <div id="requests" class="tab-content">
+            <h2>Pedidos Músicas</h2>
+            <form id="request-form">
+                <input type="text" id="request-input" placeholder="Digite o nome da música" required>
+                <input type="submit" value="Enviar Pedido">
+            </form>
+            <div class="requests-container">
+                <ul id="request-list">
+                    <!-- Os pedidos serão adicionados aqui -->
+                </ul>
+            </div>
+        </div>
+    </div>
+    <script>
+        function showTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(function(tab) {
+                tab.classList.remove('active');
+            });
+            document.getElementById(tabId).classList.add('active');
+        }
+
+        function setActiveTab(element) {
+            document.querySelectorAll('nav ul li a').forEach(function(tab) {
+                tab.classList.remove('active');
+            });
+            element.classList.add('active');
+        }
+
+        document.getElementById('idea-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const ideaInput = document.getElementById('idea-input');
+            const ideaValue = ideaInput.value.trim();
+            if (ideaValue) {
+                const requestList = document.getElementById('request-list');
+                const newItem = document.createElement('li');
+                newItem.textContent = ideaValue;
+                requestList.appendChild(newItem);
+                ideaInput.value = '';
+            }
+        });
+
+        document.getElementById('request-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const requestInput = document.getElementById('request-input');
+            const requestValue = requestInput.value.trim();
+            if (requestValue) {
+                const requestList = document.getElementById('request-list');
+                const newItem = document.createElement('li');
+                newItem.textContent = requestValue;
+                requestList.appendChild(newItem);
+                requestInput.value = '';
+            }
+        });
+    </script>
+</body>
+</html>
